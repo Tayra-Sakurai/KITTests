@@ -1,6 +1,13 @@
+﻿using KITTests.Contexts;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddDbContext<KITTestDataContext>(options =>
+options.UseAzureSql(builder.Configuration.GetConnectionString("KITTestsConnectionString") ?? throw new InvalidOperationException("No database connection string has been found.")));
+
+
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
